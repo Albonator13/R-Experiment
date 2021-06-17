@@ -1,0 +1,58 @@
+w1h1 <- read.csv('W1H1.csv')
+attach(w1h1)
+str(w1h1)
+
+lm1 <- lm(Result ~ Home.Game + PE.PerPartGanados + PE.AVGPuntosHechos + PE.AVGPuntosRecibidos + PE.AVGYardsGanadas + PE.AVGYrdPermitidas + PE.AvgTOGanados + PE.AVGTOPermitidos)
+summary(lm1)
+
+glm1 <- glm(Result ~ Home.Game + PE.PerPartGanados + PE.AVGPuntosHechos + PE.AVGPuntosRecibidos + PE.AVGYardsGanadas + PE.AVGYrdPermitidas + PE.AvgTOGanados + PE.AVGTOPermitidos, family = "poisson")
+summary(glm1)
+
+x1 <- w1h1[2:10]
+df1 <- cor(x1)
+corrplot(df1, method="circle")
+
+w1h2 <- read.csv('W1H2.csv')
+detach(w1h1)
+attach(w1h2)
+str(w1h2)
+
+lm2 <- lm(Result ~ Home.Game + Tm.Score + Opp.Score + X1stD.Off + TotYd.Off + PassY.Off + RushY.Off + TO.Off + X1stD.Def + TotYd.Def + PassY.Def + RushY.Def + TO.Def)
+summary(lm2)
+
+glm2 <- glm(Result ~ Home.Game + Tm.Score + Opp.Score + X1stD.Off + TotYd.Off + PassY.Off + RushY.Off + TO.Off + X1stD.Def + TotYd.Def + PassY.Def + RushY.Def + TO.Def, family = "poisson")
+summary(glm2)
+
+x2 <- w1h2[2:16]
+df2 <- cor(x2)
+corrplot(df2, method="circle")
+
+w1h3 <- read.csv('W1H3.csv')
+detach(w1h2)
+attach(w1h3)
+str(w1h3)
+
+lm3 <- lm(Result ~ Home.Game + Tm.Score + Opp.Score + X1stD.Off + TotYd.Off + PassY.Off + RushY.Off + TO.Off + X1stD.Def + TotYd.Def + PassY.Def + RushY.Def + TO.Def)
+summary(lm3)
+
+glm3 <- glm(Result ~ Home.Game + Tm.Score + Opp.Score + X1stD.Off + TotYd.Off + PassY.Off + RushY.Off + TO.Off + X1stD.Def + TotYd.Def + PassY.Def + RushY.Def + TO.Def, family = "poisson")
+summary(glm3)
+
+x3 <- w1h3[2:16]
+df3 <- cor(x3)
+corrplot(df3, method="number")
+
+
+# Predict try
+NewVariable <- data.frame(result=c(1))
+predict(lm2, newdata=NewVariable)  
+
+
+# 
+ggplot(w1h2, aes(x=Tm.Score, y=Result)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+anova(lm2)
+lm2
+summary(lm2)
